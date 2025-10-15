@@ -1,20 +1,18 @@
 <template>
   <div class="coupon-container">
     <div class="main-panel">
-      <el-form class="form" ref="form" :model="form" :rules="rules" label-width="100px">
+      <el-form class="form" ref="form" label-width="80px">
         <el-row>
           <el-col :span="24">
             <el-form-item class="form-item" label="核销码" prop="code">
-                <el-input class="input-item" v-model="form.code" clearable placeholder="请使用扫码枪扫描卡券二维码，或手工输入核销码" maxlength="100" />
-            </el-form-item>
-            <el-form-item class="none" label="卡券ID" prop="id">
-              <el-input class="input-item" v-model="form.id" clearable placeholder="请输入卡券ID"/>
+                <el-input class="input-item" v-model="couponCode" placeholder="请使用扫码枪扫描卡券二维码，或手工输入核销码..." maxlength="100" />
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <div class="action">
         <el-button type="primary" class="confirm-button" @click="submitConfirm">确定核销</el-button>
+        <el-button class="back-button" @click="backUserCoupon">返回列表</el-button>
       </div>
     </div>
 
@@ -52,8 +50,8 @@
         <el-row v-if="couponInfo.amount">
           <el-col :span="24">
             <el-form-item label="卡券面额：">
-              <el-input style="width: 200px;" v-model="couponInfo.amount.toFixed(2)" disabled></el-input>
-              <span class="unit">元</span>
+              <span v-if="couponInfo.content == '2'"><el-input style="width: 200px;" v-model="(couponInfo.amount/10).toFixed(2)" disabled></el-input><span class="unit">折</span></span>
+              <span v-else><el-input style="width: 200px;" v-model="couponInfo.amount.toFixed(2)" disabled></el-input><span class="unit">元</span></span>
             </el-form-item>
           </el-col>
         </el-row>
@@ -98,8 +96,8 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="doSubmitConfirm">确定核销</el-button>
-        <el-button @click="cancelConfirm">取 消</el-button>
+        <el-button type="primary" class="main-button" @click="doSubmitConfirm">确定核销</el-button>
+        <el-button class="main-button main-button-reset" @click="cancelConfirm">取 消</el-button>
       </div>
     </el-dialog>
     <!--核销对话框 end-->
@@ -108,39 +106,30 @@
 
 <script>
 import { getConfirmInfo, doConfirm } from "@/api/coupon";
-import {Message} from "element-ui";
+import { Message } from "element-ui";
 export default {
-  name: "ConfirmIndex",
+  props: {
+    couponCode: {
+      type:[String],
+      default:()=>""
+    }
+  },
   data() {
     return {
       // 遮罩层
       loading: false,
       // 核销弹框
       open: false,
-      form: { id: '', code: '' },
       confirmForm: { userCouponId: '', amount: '', remark: '' },
       couponInfo: {},
       userInfo: {},
       typeList: [],
-      // 表单校验
-      rules: {
-        code: [
-          { required: true, message: "核销码不能为空", trigger: "blur" },
-          { min: 2, max: 100, message: '核销码长度必须介于2和100之间', trigger: 'blur' }
-        ]
-      },
       confirmRules: {
         amount: [
           { required: true, message: "核销金额不能为空", trigger: "blur" },
         ]
       }
     };
-  },
-  created() {
-    this.form.code = this.$route.query.code
-  },
-  activated () {
-    this.form.code = this.$route.query.code
   },
   methods: {
     // 取消按钮
@@ -149,19 +138,19 @@ export default {
     },
     // 确定核销
     submitConfirm: function() {
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-            getConfirmInfo(this.form).then(response => {
-               this.couponInfo = response.data.couponInfo;
-               this.confirmForm.userCouponId = this.couponInfo.id
-               this.userInfo = response.data.userInfo ? response.data.userInfo : null;
-               this.typeList = response.data.typeList;
-               this.open = true
-            }).catch(() => {
-               // empty
-            });
-        }
-      });
+        getConfirmInfo({ code: this.couponCode }).then(response => {
+           this.couponInfo = response.data.couponInfo;
+           this.confirmForm.userCouponId = this.couponInfo.id
+           this.userInfo = response.data.userInfo ? response.data.userInfo : null;
+           this.typeList = response.data.typeList;
+           this.open = true
+        }).catch(() => {
+           // empty
+        });
+    },
+    // 返回列表
+    backUserCoupon: function() {
+      this.$emit('doUserCoupon');
     },
     // 执行核销
     doSubmitConfirm: function() {
@@ -239,7 +228,9 @@ export default {
   padding: 0px 25px 0px 25px;
   height: 50px;
 }
-.none {
-  display: none;
+.back-button {
+  line-height: 50px;
+  padding: 0px 25px 0px 25px;
+  height: 50px;
 }
 </style>

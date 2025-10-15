@@ -7,7 +7,8 @@
                 <div class="item active" v-for="coupon in couponList">
                   <div @click="useThisCoupon(coupon)">
                     <div class="left">
-                       <div class="amount">￥{{ coupon.amount }}</div>
+                       <div class="amount" v-if="coupon.content == '2'">{{ (coupon.amount / 10).toFixed(2) }}折</div>
+                       <div class="amount" v-else>{{ coupon.amount }}折</div>
                        <div class="tips">{{ coupon.description }}</div>
                     </div>
                     <div class="right">
