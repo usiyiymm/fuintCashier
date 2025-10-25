@@ -1,7 +1,7 @@
 # fuint门店收银系统
 
 #### 介绍
-fuint门店收银系统前端仓库，该系统可用范围：零售超市、甜品店、餐饮奶茶店、美容足疗店等实体店铺的会员收银系统。
+门店收银系统前端仓库，该系统可用范围：零售超市、甜品店、餐饮奶茶店、美容足疗店等实体店铺的会员收银系统。
 以下是前台的页面展示：
 <p><img src="https://fuint-cn.oss-cn-shenzhen.aliyuncs.com/screenshots/cashier.png?v=1" alt="收银页面1"></p>
 <p><img src="https://fuint-cn.oss-cn-shenzhen.aliyuncs.com/screenshots/cashier-1.png?v=2" alt="收银页面2"></p>
@@ -13,13 +13,7 @@ fuint侧重于线下实体店的私域流量的运营，同时提供会员端小
 <p>4、会员卡券齐全：储值卡、电子券、优惠券、集次卡、计次卡、实体卡购买并兑换、会员充值、余额支付。</p>
 <p>5、线上代客下单收银系统，后台管理员可帮助临柜的会员下单、扫码支付。</p>
 <p>6、支持手机短信、站内弹框消息、微信订阅消息：支持包括发货消息、卡券到期提醒、活动提醒、会员到期提醒、积分余额变动提醒等消息。</p>
-<p>后端仓库：https://gitee.com/fuint/fuint</p>
-<br>
-<b>官网演示地址：</b><br>
-<p>
-   1、官网：<a target="_blank" href="https://www.fuint.cn">https://www.fuint.cn</a> 点击 -> 系统演示，演示账号：fuint / 123456<br>
-   2、swagger接口文档：<a target="_blank" href="https://www.fuint.cn/fuint-application/swagger-ui.html">https://www.fuint.cn/fuint-application/swagger-ui.html</a>
-</p>
+
 
 #### 软件架构
 后端：JAVA SpringBoot + MYSQL Mybatis Plus + Redis
@@ -51,15 +45,3 @@ fuint侧重于线下实体店的私域流量的运营，同时提供会员端小
 3. 推荐Watch、Star项目，获取项目第一时间更新，同时也是对项目最好的支持
 4. 希望大家多多支持原创软件
 5. 请勿去除版权标签，要商用请购买源码授权（非常便宜），感谢理解！
-
-不足和待完善之处请谅解！源码仅供学习交流，更多功能欢迎进群咨询讨论，或需安装帮助请联系我们（<b>麻烦先点star！！！！！！</b>）。<br>
-官方网站：https://www.fuint.cn <br>
-开源不易，感谢支持！<br>
-<b>作者wx：fsq_better：</b><br>
-<p><img src="https://fuint-cn.oss-cn-shenzhen.aliyuncs.com/screenshots/qr.png" alt="公众号二维码"></p>
-
-
-特别鸣谢：<br>
-Mybaits Plus: https://github.com/baomidou/mybatis-plus<br>
-Vue: https://github.com/vuejs/vue<br>
-Element UI: https://element.eleme.cn
